@@ -40,11 +40,8 @@ function onMouseMove(event) {
 function onFrame(event) {
 	for (var i = 0, l = sites.length; i < l; i++) {
                 var pt = Point.random() - Point.random();
-		if (Math.random() < 0.5) {
-			sites[i] += pt + pt + pt + pt;
-		} else {
-			sites[i] -= pt + pt + pt + pt;
-		}
+                pt = ((view.size/(view.size / 50)) / 4)*pt
+		sites[i] += pt;
 	}
 	renderDiagram();
 }
@@ -87,29 +84,15 @@ function removeSmallBits(path) {
 
 function generateBeeHivePoints(size, loose) {
 	var points = [];
-        if (imgReady) {
-		var col = view.size / size;
-		for(var i = -1; i < size.width + 1; i++) {
-			for(var j = -1; j < size.height + 1; j++) {
-				var point = new Point(i, j) / new Point(size) * view.size + col / 2;
-				if(j % 2)
-					point += new Point(col.width / 2, 0);
-				if(loose)
-					point += (col / 4) * Point.random() - col / 4;
-				points.push(point);
-			}
-		}
-	} else {
-		var col = view.size / size;
-		for(var i = -1; i < size.width + 1; i++) {
-			for(var j = -1; j < size.height + 1; j++) {
-				var point = new Point(i, j) / new Point(size) * view.size + col / 2;
-				if(j % 2)
-					point += new Point(col.width / 2, 0);
-				if(loose)
-					point += (col / 4) * Point.random() - col / 4;
-				points.push(point);
-			}
+	var col = view.size / size;
+	for(var i = -1; i < size.width + 1; i++) {
+		for(var j = -1; j < size.height + 1; j++) {
+			var point = new Point(i, j) / new Point(size) * view.size + col / 2;
+			if(j % 2)
+				point += new Point(col.width / 2, 0);
+			if(loose)
+				point += (col / 4) * Point.random() - col / 4;
+			points.push(point);
 		}
 	}
 	return points;
@@ -138,108 +121,17 @@ function createPath(points, center) {
 	if (imgReady) {
 		if (color.lightness < 0.4) {
 		//if (color.hue < 0.4) {
-			var ptt = Point.random() - Point.random();
-			ptt += ptt;
-			ptt += ptt;
-			sites.push(center + ptt)
-			ptt = Point.random() - Point.random();
-			ptt += ptt;
-			ptt += ptt;
-			sites.push(center + ptt)
-			ptt = Point.random() - Point.random();
-			ptt += ptt;
-			ptt += ptt;
-			sites.push(center + ptt)
-			ptt = Point.random() - Point.random();
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			sites.push(center + ptt)
-			ptt = Point.random() - Point.random();
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			sites.push(center + ptt)
-			ptt = Point.random() - Point.random();
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			sites.push(center + ptt)
-			ptt = Point.random() - Point.random();
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			sites.push(center + ptt)
-			ptt = Point.random() - Point.random();
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			sites.push(center + ptt)
-			ptt = Point.random() - Point.random();
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			sites.push(center + ptt)
-			ptt = Point.random() - Point.random();
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			sites.push(center + ptt)
-			ptt = Point.random() - Point.random();
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			sites.push(center + ptt)
+			for(var i=0; i< 50; i++) {
+                	var pt = Point.random() - Point.random();
+                		pt = ((view.size/(view.size / 50)) / 2)*pt
+				sites.push(center + pt)
+			}
 		} else if (color.lightness < 0.5) {
-		//} else if (color.hue < 0.5) {
-			var ptt = Point.random() - Point.random();
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			sites.push(center + ptt)
-			ptt = Point.random() - Point.random();
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			ptt += ptt;
-			sites.push(center + ptt)
+			for(var i=0; i< 2; i++) {
+                	var pt = Point.random() - Point.random();
+                		pt = ((view.size/(view.size / 50)) / 4)*pt
+				sites.push(center + pt)
+			}
 		}
 	}
         path.fillColor = color;
